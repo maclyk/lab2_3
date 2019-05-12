@@ -1,0 +1,357 @@
+<MainWindow>:
+    name: "Main"
+    BoxLayout:
+        orientation: "vertical"
+
+        Button:
+            text: "Pokaz tabele Kategorie_Czesci"
+            on_release:
+                app.root.current = "Kategorie_Czesci"
+
+        Button:
+            text: "Pokaz tabele Czesci_Motoryzacyjne"
+            on_release:
+                app.root.current = "Czesci_Motoryzacyjne"
+
+        Button:
+            text: "Pokaz tabele Pojazdy"
+            on_release:
+                app.root.current = "Pojazdy"
+
+        Button:
+            text: "Pokaz tabele Mechanicy"
+            on_release:
+                app.root.current = "Mechanicy"
+
+        Button:
+            text: "Pokaz tabele Naprawy"
+            on_release:
+                app.root.current = "Naprawy"
+
+<KategorieCzesciWindow>:
+    name: "Kategorie_Czesci"
+    GridLayout:
+        cols: 1
+        orientation: "vertical"
+
+        Button:
+            id: button_pobierz
+            text: "Pobierz dane z tabeli Kategorie_Czesci"
+            on_press:
+                root.get_data()
+                root.ids.button_pobierz.text = "Dane z tabeli Kategorie_Czesci"
+            background_color: 0,1,1,1
+
+        Spinner:
+            id: spinner_dane
+            text: str(root.rows[0])[1:-1]
+            values: [str("{}".format(row))[1:-1] for row in root.rows]
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "nazwa: "
+            TextInput:
+                id: nazwa
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+
+        GridLayout:
+            cols:3
+            Button:
+                text: "Dodaj Kategorie_Czesci"
+                on_press:
+                    root.add_new([root.ids.nazwa.text])
+                    root.get_data()
+
+            Button:
+                text: "Edytuj Kategorie_Czesci"
+                on_press:
+                    root.edit_value(root.ids.spinner_dane.text[0], [root.ids.nazwa.text])
+                    root.get_data()
+
+            Button:
+                text: "Usuń Kategorie_Czesci"
+                on_press:
+                    root.delete_value(root.ids.spinner_dane.text[0])
+                    root.get_data()
+
+        Button:
+            text: "Zapisz zmiany w bazie danych"
+            on_release: root.save_database()
+            background_color: 0,1,1,1
+
+        Button:
+            text: "Powrót do głównego menu."
+            on_release:
+                app.root.current = "Main"
+
+
+<CzesciMotoryzacyjneWindow>:
+    name: "Czesci_Motoryzacyjne"
+    GridLayout:
+        cols: 1
+        orientation: "vertical"
+
+        Button:
+            id: button_pobierz
+            text: "Pobierz dane z tabeli Czesci_Motoryzacyjne"
+            on_press:
+                root.get_data()
+                root.ids.button_pobierz.text = "Dane z tabeli Czesci_Motoryzacyjne"
+            background_color: 0,1,1,1
+
+        Spinner:
+            id: spinner_dane
+            text: str(root.rows[0])[1:-1]
+            values: [str("{}".format(row))[1:-1] for row in root.rows]
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "id_kategorii: "
+            TextInput:
+                id: id_kategorii
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+            Label:
+                text: "nazwa: "
+            TextInput:
+                id: nazwa
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+            Label:
+                text: "opis: "
+            TextInput:
+                id: opis
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+        GridLayout:
+            cols:3
+            Button:
+                text: "Dodaj Czesci_Motoryzacyjne"
+                on_press:
+                    root.add_new([root.ids.id_kategorii.text, root.ids.nazwa.text, root.ids.opis.text])
+                    root.get_data()
+
+            Button:
+                text: "Edytuj Kategorie_Czesci"
+                on_press:
+                    root.edit_value(root.ids.spinner_dane.text[0], [root.ids.id_kategorii.text, root.ids.nazwa.text, root.ids.opis.text])
+                    root.get_data()
+
+            Button:
+                text: "Usuń Kategorie_Czesci"
+                on_press:
+                    root.delete_value(root.ids.spinner_dane.text[0])
+                    root.get_data()
+
+        Button:
+            text: "Zapisz zmiany w bazie danych"
+            on_release: root.save_database()
+            background_color: 0,1,1,1
+
+        Button:
+            text: "Powrót do głównego menu."
+            on_release:
+                app.root.current = "Main"
+
+
+
+<PojazdyWindow>:
+    name: "Pojazdy"
+    GridLayout:
+        cols: 1
+        orientation: "vertical"
+
+        Button:
+            id: button_pobierz
+            text: "Pobierz dane z tabeli Pojazdy"
+            on_press:
+                root.get_data()
+                root.ids.button_pobierz.text = "Dane z tabeli Pojazdy"
+            background_color: 0,1,1,1
+
+        Spinner:
+            id: spinner_dane
+            text: str(root.rows[0])[1:-1]
+            values: [str("{}".format(row))[1:-1] for row in root.rows]
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "numer rejestracyjny: "
+            TextInput:
+                id: numer_rej
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+        GridLayout:
+            cols:3
+            Button:
+                text: "Dodaj Pojazdy"
+                on_press:
+                    root.add_new([root.ids.numer_rej.text])
+                    root.get_data()
+
+            Button:
+                text: "Edytuj Pojazdy"
+                on_press:
+                    root.edit_value(root.ids.spinner_dane.text[0], [root.ids.numer_rej.text])
+                    root.get_data()
+
+            Button:
+                text: "Usuń Pojazdy"
+                on_press:
+                    root.delete_value(root.ids.spinner_dane.text[0])
+                    root.get_data()
+
+        Button:
+            text: "Zapisz zmiany w bazie danych"
+            on_release: root.save_database()
+            background_color: 0,1,1,1
+
+        Button:
+            text: "Powrót do głównego menu."
+            on_release:
+                app.root.current = "Main"
+
+
+<MechanicyWindow>:
+    name: "Mechanicy"
+    GridLayout:
+        cols: 1
+        orientation: "vertical"
+
+        Button:
+            id: button_pobierz
+            text: "Pobierz dane z tabeli Mechanicy"
+            on_press:
+                root.get_data()
+                root.ids.button_pobierz.text = "Dane z tabeli Mechanicy"
+            background_color: 0,1,1,1
+
+        Spinner:
+            id: spinner_dane
+            text: str(root.rows[0])[1:-1]
+            values: [str("{}".format(row))[1:-1] for row in root.rows]
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "nazwisko: "
+            TextInput:
+                id: nazwisko
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+        GridLayout:
+            cols:3
+            Button:
+                text: "Dodaj Mechanika"
+                on_press:
+                    root.add_new([root.ids.nazwisko.text])
+                    root.get_data()
+
+            Button:
+                text: "Edytuj Mechanika"
+                on_press:
+                    root.edit_value(root.ids.spinner_dane.text[0], [root.ids.nazwisko.text])
+                    root.get_data()
+
+            Button:
+                text: "Usuń Mechanika"
+                on_press:
+                    root.delete_value(root.ids.spinner_dane.text[0])
+                    root.get_data()
+
+        Button:
+            text: "Zapisz zmiany w bazie danych"
+            on_release: root.save_database()
+            background_color: 0,1,1,1
+
+        Button:
+            text: "Powrót do głównego menu."
+            on_release:
+                app.root.current = "Main"
+
+
+<NaprawyWindow>:
+    name: "Naprawy"
+    GridLayout:
+        cols: 1
+        orientation: "vertical"
+
+        Button:
+            id: button_pobierz
+            text: "Pobierz dane z tabeli Naprawy"
+            on_press:
+                root.get_data()
+                root.ids.button_pobierz.text = "Dane z tabeli Naprawy"
+            background_color: 0,1,1,1
+
+        Spinner:
+            id: spinner_dane
+            text: str(root.rows[0])[1:-1]
+            values: [str("{}".format(row))[1:-1] for row in root.rows]
+
+        GridLayout:
+            cols: 2
+            Label:
+                text: "id pojazdu: "
+            TextInput:
+                id: id_pojazdu
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+            Label:
+                text: "id mechanika: "
+            TextInput:
+                id: id_mechanika
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+            Label:
+                text: "data: "
+            TextInput:
+                id: data
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+            Label:
+                text: "status: "
+            TextInput:
+                id: status
+                font_size: (root.width + root.height) / 9**2
+                multiline: False
+
+        GridLayout:
+            cols:3
+            Button:
+                text: "Dodaj Naprawy"
+                on_press:
+                    root.add_new([root.ids.id_pojazdu.text, root.ids.id_mechanika.text, root.ids.data.text, root.ids.status.text])
+                    root.get_data()
+
+            Button:
+                text: "Edytuj Naprawy"
+                on_press:
+                    root.edit_value(root.ids.spinner_dane.text[0], [root.ids.id_pojazdu.text, root.ids.id_mechanika.text, root.ids.data.text, root.ids.status.text])
+                    root.get_data()
+
+            Button:
+                text: "Usuń Naprawy"
+                on_press:
+                    root.delete_value(root.ids.spinner_dane.text[0])
+                    root.get_data()
+
+        Button:
+            text: "Zapisz zmiany w bazie danych"
+            on_release: root.save_database()
+            background_color: 0,1,1,1
+
+        Button:
+            text: "Powrót do głównego menu."
+            on_release:
+                app.root.current = "Main"
